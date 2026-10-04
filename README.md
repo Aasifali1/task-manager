@@ -1,59 +1,78 @@
-# TaskManager
+# Task Manager
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.2.1.
+A small Angular application for organizing tasks by priority and completion status. It demonstrates standalone components, reactive forms, Angular Router, a shared service, and dependency injection.
 
-## Development server
+## Features
 
-To start a local development server, run:
+- View tasks with their title, priority, and completion status.
+- See distinct visual treatments for Low, Medium, and High priority tasks.
+- Mark tasks completed or pending; completed tasks are styled differently.
+- See the current pending-task count and an empty-state message when there are no tasks.
+- Add tasks with a title, priority, and optional completed status.
+- Validate task titles and clear or reset the form.
+- Navigate between the task list and add-task form using Angular Router.
 
-```bash
-ng serve
-```
+Tasks are currently stored in memory by `TaskService`; they reset when the application is reloaded.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Requirements
 
-## Code scaffolding
+- Node.js and npm
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Run Locally
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Install the dependencies and start the Angular development server:
 
 ```bash
-ng build
+npm install
+npm start
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Open [http://localhost:4200](http://localhost:4200). The root route redirects to `/tasks`.
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+Useful commands:
 
 ```bash
-ng test
+npm run build  # Build the application
+npm test       # Run unit tests
 ```
 
-## Running end-to-end tests
+## Application Structure
 
-For end-to-end (e2e) testing, run:
+| Area | Location | Responsibility |
+| --- | --- | --- |
+| Root application | `src/app/app.ts` | Hosts the navigation and routed views. |
+| Task list | `src/app/components/task-list/` | Displays tasks, completion controls, empty state, and pending count. |
+| Add task | `src/app/components/add-task/` | Provides the reactive form for creating tasks. |
+| Task service | `src/app/services/task.ts` | Stores tasks and exposes retrieval, add, and completion-update operations. |
+| Task model | `src/app/models/task.model.ts` | Defines the task shape and allowed priority values. |
 
-```bash
-ng e2e
-```
+## Routes
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+| Path | View | Behavior |
+| --- | --- | --- |
+| `/tasks` | Task list | Displays the current tasks. |
+| `/add-task` | Add task | Opens the task form; successful submission returns to `/tasks`. |
+| `/` | Redirect | Redirects to `/tasks`. |
+| Unknown path | Redirect | Redirects to `/tasks`. |
 
-## Additional Resources
+## Angular Concepts
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **Components:** The task list and add-task form are separate standalone components.
+- **Reactive Forms:** The add-task form uses `FormBuilder`, validators, touched-state validation messages, and form reset behavior.
+- **Routing:** `RouterLink`, `RouterOutlet`, and configured routes switch views without manually changing the page URL.
+- **Services:** `TaskService` owns the in-memory task data and task operations.
+- **Dependency Injection:** `TaskService` is provided at the root and injected into the components that use it.
+- **Templates and binding:** Angular control flow, interpolation, property/class binding, and event binding render and update task state.
+
+## Screenshots
+
+Add screenshots to a `screenshots/` directory at the repository root. Suggested filenames:
+
+- `screenshots/task-list.png` - task list with priority and completion status visible.
+- `screenshots/add-task-form.png` - add-task form, preferably showing its validation messages.
+
+After adding the image files, uncomment the matching image line(s) below so they appear in this section:
+
+![alt text](image.png)
+
+![alt text](image-1.png)

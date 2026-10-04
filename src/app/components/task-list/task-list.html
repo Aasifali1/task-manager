@@ -1,0 +1,78 @@
+<div class="task-container">
+
+  <div class="page-header">
+    <div>
+      <h1>Task Manager</h1>
+      <p>Manage your tasks efficiently</p>
+    </div>
+
+    <a routerLink="/add-task" class="add-button">
+      + Add Task
+    </a>
+  </div>
+
+  <div class="summary">
+    <strong>Pending Tasks:</strong>
+    {{ pendingTaskCount }}
+  </div>
+
+  @if (tasks.length === 0) {
+
+    <div class="empty-message">
+      <h2>No tasks available</h2>
+      <p>Add a new task to get started.</p>
+    </div>
+
+  } @else {
+
+    <div class="task-list">
+
+      @for (task of tasks; track task.id) {
+
+        <div
+          class="task-card"
+          [class.completed]="task.completed"
+          [class.priority-low]="task.priority === 'Low'"
+          [class.priority-medium]="task.priority === 'Medium'"
+          [class.priority-high]="task.priority === 'High'"
+        >
+
+          <div class="task-details">
+
+            <h2>{{ task.title }}</h2>
+
+            <div class="task-meta">
+
+              <span>
+                Priority:
+                <strong>{{ task.priority }}</strong>
+              </span>
+
+              <span>
+                Status:
+                <strong>
+                  {{ task.completed ? 'Completed' : 'Pending' }}
+                </strong>
+              </span>
+
+            </div>
+
+          </div>
+
+          <button
+            type="button"
+            class="status-button"
+            (click)="toggleTask(task.id)"
+          >
+            {{ task.completed ? 'Mark Uncompleted' : 'Mark Completed' }}
+          </button>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</div>
